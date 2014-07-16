@@ -7,7 +7,7 @@
       <dt><span class="icon-folder"></span></dt>
       <dd>
         <ul class="list-unstyled">
-          <li ng-repeat="res in resultsPerContext['GENERAL']"><a href="{{res.link()}}">{{res.title}}</a></li>
+          <li class="result-li" ng-repeat="res in resultsPerContext['GENERAL']"><a href="{{res.link()}}">{{res.title}}</a></li>
         </ul>
       </dd>
     </div>
@@ -15,8 +15,8 @@
       <dt>{{contextInfo(con).name}} <small><a ng-show="count(con) > resultsPerContext[con].length" ng-click="browse(con, context.url)" class="specify"><span class="icon-zoomin"></span></small></a></dt>
       <dd>
         <ul class="list-unstyled">
-          <li ng-repeat="res in resultsPerContext[con]"><a href="{{res.link()}}">{{res.title}}</a></li>
-          <li ng-show="!resultsPerContext[con] || resultsPerContext[con].length == 0">&hellip;</li>
+          <li class="result-li" ng-repeat="res in resultsPerContext[con]"><a href="{{res.link()}}">{{res.title}}</a></li>
+          <li class="result-li toggled" ng-class="{'visible': !resultsPerContext[con] || resultsPerContext[con].length == 0}">&hellip;</li>
         </ul>
       </dd>
     </div>
