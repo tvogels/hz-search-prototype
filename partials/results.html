@@ -2,6 +2,7 @@
   <ol class="breadcrumb">
     <li ng-repeat="node in trace"><a ng-click="browse(node.url,context.url)">{{node.name}}</a></li>
   </ol>
+  <div ng-if="noResults">Er zijn geen resultaten gevonden voor ‘{{query}}’.</div>
   <dl class="dl-horizontal">
     <div ng-show="resultsPerContext['GENERAL'].length > 0">
       <dt><span class="icon-folder"></span></dt>

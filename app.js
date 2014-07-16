@@ -101,6 +101,12 @@ app.controller('ResultsCtrl', function (ContextService, SearchService, $scope, u
   var activeContexts = [];
   var resultsPerContext = {};
 
+  if (results.length == 0) {
+    $scope.noResults = true;
+  } else {
+    $scope.noResults = false;
+  }
+
   var nResultsPerPage = 12;
   var lastPage = Math.ceil(results.length / nResultsPerPage);
   $scope.lastPage = lastPage;
