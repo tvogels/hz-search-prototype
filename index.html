@@ -143,12 +143,18 @@
         transform:translate(0,0);
         opacity:1;
       }
+      .pagination a {
+        cursor:pointer;
+      }
       @media screen and (min-width: 768px) {
         .dl-horizontal dt {
           width:200px;
         }
         .dl-horizontal dd {
           margin-left: 230px;
+        }
+        .pagination-container {
+          margin-left:230px;
         }
       }
     </style>
@@ -160,8 +166,8 @@
       <p class="text-center">Loading ...</p>
     </div>
 
-    <div class="container text-center" style="position:absolute;bottom:1em;color:#aaa;">
-      <div><small>Search prototype for DeltaExpertise, by Thijs Vogels</small></div>
+    <div class="container text-center" style="position:fixed;bottom:1em;color:#aaa;">
+      <div><small>Search prototype for DeltaExpertise</small></div>
     </div>
 
     <script src="bower_components/angular/angular.js"></script>

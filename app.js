@@ -95,39 +95,65 @@ app.controller('ResultsCtrl', function (ContextService, SearchService, $scope, u
     return ContextService.get(node);
   });
 
+  // start collecting results and dividing them over pages
   var results = SearchService.contextResults(url);
 
   var activeContexts = [];
-  var selection = results.slice(0,12);
+  var resultsPerContext = {};
 
-  console.log(selection);
-  var resultsPerContext = {'GENERAL': []};
+  var nResultsPerPage = 12;
+  var lastPage = Math.ceil(results.length / nResultsPerPage);
+  $scope.lastPage = lastPage;
+  $scope.currentPage = 1;
+  $scope.pageRange = [];
+  for (var i = 1; i <= lastPage; i++) {
+    $scope.pageRange.push(i);
+  }
 
-  selection.forEach(function (result) {
-    var myContexts = flatten(result.contexts.map(function (cntxt) {
-      return ContextService.trace(cntxt);
-    }));
-    var intersection = array_intersection(myContexts.sort(), directChildContexts.sort());
-    if (intersection.length > 0) {
-      // intersection contains direct children of the current context
-      // see if there are active ones
-      var alreadyActive = array_intersection(intersection, activeContexts.sort());
+  $scope.goToPage = function (pagenr) {
+    console.log('go to page', pagenr);
+    pagenr = parseInt(pagenr);
+    $scope.currentPage = pagenr;
+    resultsPerContext = {'GENERAL': []};
+    var selection = results.slice((pagenr-1)*nResultsPerPage,pagenr*nResultsPerPage);
+    selection.forEach(function (result) {
+      var myContexts = flatten(result.contexts.map(function (cntxt) {
+        return ContextService.trace(cntxt);
+      }));
+      var intersection = array_intersection(myContexts.sort(), directChildContexts.sort());
+      if (intersection.length > 0) {
+        // intersection contains direct children of the current context
+        // see if there are active ones
+        var alreadyActive = array_intersection(intersection, activeContexts.sort());
 
-      if (alreadyActive.length > 0) {
-        // ok, take that one
-        resultsPerContext[alreadyActive[0]].push(result);
+        if (alreadyActive.length > 0) {
+          // ok, take that one
+          if (typeof resultsPerContext[alreadyActive[0]] === 'undefined') {
+            resultsPerContext[alreadyActive[0]] = [];
+          }
+          resultsPerContext[alreadyActive[0]].push(result);
+        } else {
+          activeContexts.push(intersection[0]);
+          resultsPerContext[intersection[0]] = [result];
+        }
+
       } else {
-        activeContexts.push(intersection[0]);
-        resultsPerContext[intersection[0]] = [result];
+        resultsPerContext['GENERAL'].push(result);
       }
+    });
+    $scope.resultsPerContext = resultsPerContext;
+  }
 
-    } else {
-      resultsPerContext['GENERAL'].push(result);
-    }
-  });
+  $scope.goToPage(1);
+  $scope.goBack = function () {
+    $scope.goToPage(Math.max($scope.currentPage-1,1));
+  };
+  $scope.goNext = function () {
+    $scope.goToPage(Math.min($scope.currentPage+1,lastPage));
+  };
 
   $scope.contextInfo = ContextService.get;
   $scope.count = SearchService.contextCount;
   $scope.activeContexts = activeContexts;
-  $scope.resultsPerContext = resultsPerContext;
+
 });

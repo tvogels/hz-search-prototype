@@ -16,8 +16,16 @@
       <dd>
         <ul class="list-unstyled">
           <li ng-repeat="res in resultsPerContext[con]"><a href="{{res.link()}}">{{res.title}}</a></li>
+          <li ng-show="!resultsPerContext[con] || resultsPerContext[con].length == 0">&hellip;</li>
         </ul>
       </dd>
     </div>
   </dl>
+  <div ng-if="lastPage > 1" class="pagination-container">
+    <ul class="pagination pagination-sm">
+      <li ng-class="{'disabled': currentPage == 1}"><a ng-click="goBack()">&laquo;</a></li>
+      <li ng-repeat="page in pageRange" ng-class="{'active': currentPage == page}"><a ng-click="goToPage(page)">{{page}}</a></li>
+      <li ng-class="{'disabled': currentPage == lastPage}"><a ng-click="goNext()">&raquo;</a></li>
+    </ul>
+  </div>
 </div>
