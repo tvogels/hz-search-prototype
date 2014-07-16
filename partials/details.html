@@ -1,0 +1,16 @@
+<div class="wrapper details-wrapper">
+  <script type="text/ng-template" id="nodes_renderer.html">
+    <div class="details-tree-node">
+      <a ng-click="browse(node.url,'details')">{{node.name}}</a> ({{count(node.url)}})
+    </div>
+    <ul>
+      <li ng-repeat="node in node.children" ng-include="'nodes_renderer.html'">
+      </li>
+    </ul>
+  </script>
+  <div class="details-tree">
+    <ul ng-model="tree">
+      <li ng-repeat="node in tree" ng-include="'nodes_renderer.html'"></li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,176 @@
+<!doctype html>
+
+<html lang="nl">
+  
+  <head>
+    <title>HZ Search Prototype</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="icons.css">
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        padding: 1em 0;
+        background-color: #eee;
+      }
+      .result-container {
+        min-height:200px;
+        display: flex;
+        padding:0;
+        border-radius:3px;
+      }
+      .result-sidebar {
+        width:3.5em;
+        flex-grow:0;
+        flex-shrink:0;
+      }
+      .sidebar-icon {
+        color: #9f44af;
+        margin-top:.2em;
+        font-size:1.3em;
+      }
+      .sidebar-icon:hover {
+        color: #6f139f;
+      }
+      .result-wrapper {
+        flex-grow: 1;
+        position: relative;
+      }
+      .result-main > .wrapper {
+        box-shadow: 0px 0px 3px rgba(0,0,0,0.4);
+        background-color: rgb(248,248,248);
+        padding: 1em;
+        min-height: 200px;
+        border-radius:3px;
+      }
+      .details-wrapper {
+        background-color: #eee !important;
+        box-shadow: none !important;
+      }
+      .details-tree {
+        margin-left:-2em;
+        color: #aaa;
+      }
+      .details-tree ul {
+        list-style:none;
+        margin:0;
+        padding-left:1.5em;
+      }
+      .details-tree ul ul {
+        border-left:1px dashed #ddd;
+      }
+      .details-tree a {
+        color: #777;
+        cursor:pointer;
+      }
+      .breadcrumb {
+        padding:0;
+        background-color: transparent;
+        padding-bottom:.7em;
+        border-bottom:1px solid #ddd;
+      }
+      .breadcrumb a {
+        cursor:pointer;
+        color: #9f44af;
+      }
+      .specify {
+        color: #9f44af;
+        cursor:pointer;
+        margin-top:3px;
+        text-decoration:none !important;
+      }
+      .specify:hover {
+        color: #6f139f;
+      }
+      .result-main {
+        width: 100%;
+        -webkit-transition:all .6s ease;
+        -moz-transition:all .6s ease;
+        -o-transition:all .6s ease;
+        transition:all .6s ease;
+      }
+      .result-main.ng-leave {
+        position:absolute;
+        z-index:10;
+        opacity: 1;
+      }
+      .result-main.ng-leave-active {
+        opacity: 0;
+      }
+      .result-main.ng-enter {
+        position:absolute;
+        z-index:20;
+        opacity:0;
+        -webkit-transform:translate(100px, 0);
+        -moz-transform:translate(100px, 0);
+        transform:translate(100px, 0);
+      }
+      .result-main.ng-enter-active {
+        -webkit-transform:translate(0,0);
+        -moz-transform:translate(0,0);
+        transform:translate(0,0);
+        opacity: 1;
+      }
+
+
+      .back > .result-main.ng-leave {
+        position:absolute;
+        z-index:20;
+        -webkit-transform:translate(0,0);
+        -moz-transform:translate(0,0);
+        transform:translate(0,0);
+        opacity:1;
+      }
+      .back > .result-main.ng-leave-active {
+        -webkit-transform:translate(100px,0);
+        -moz-transform:translate(100px,0);
+        transform:translate(100px,0);
+        opacity:0;
+      }
+      .back > .result-main.ng-enter {
+        z-index:10;
+        -webkit-transform:translate(0,0);
+        -moz-transform:translate(0,0);
+        transform:translate(0,0);
+        opacity:.5;
+      }
+      .back > .result-main.ng-enter-active {
+        -webkit-transform:translate(0,0);
+        -moz-transform:translate(0,0);
+        transform:translate(0,0);
+        opacity:1;
+      }
+      @media screen and (min-width: 768px) {
+        .dl-horizontal dt {
+          width:200px;
+        }
+        .dl-horizontal dd {
+          margin-left: 230px;
+        }
+      }
+    </style>
+  </head>
+
+  <body ng-app="searchApp">
+
+    <div class="container" ui-view>
+      <p class="text-center">Loading ...</p>
+    </div>
+
+    <div class="container text-center" style="position:absolute;bottom:1em;color:#aaa;">
+      <div><small>Search prototype for DeltaExpertise, by Thijs Vogels</small></div>
+    </div>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-md5/angular-md5.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="app.min.js"></script>
+  </body>
+
+</html>

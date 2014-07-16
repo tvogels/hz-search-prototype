@@ -1,0 +1,17 @@
+<nav class="navbar">
+  <div class="navbar-header">
+    <span class="navbar-brand">Zoekresultaat</span>
+  </div>
+  <form class="navbar-form" role="search" ng-submit="search(form.searchQuery)">
+      <input type="search" class="form-control" ng-model="form.searchQuery">
+  </form>
+</nav>
+
+<div class="result-container">
+  <div class="result-sidebar">
+    <a ng-click="browse('details','')" class="btn sidebar-icon"><span class="icon-flow-tree"></span></a>
+  </div>
+  <div class="result-wrapper" ng-class="{back: goback}">
+    <div class="result-main" ui-view></div>
+  </div>
+</div>

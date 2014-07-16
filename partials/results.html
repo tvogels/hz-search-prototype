@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <ol class="breadcrumb">
+    <li ng-repeat="node in trace"><a ng-click="browse(node.url,context.url)">{{node.name}}</a></li>
+  </ol>
+  <dl class="dl-horizontal">
+    <div ng-show="resultsPerContext['GENERAL'].length > 0">
+      <dt><span class="icon-folder"></span></dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li ng-repeat="res in resultsPerContext['GENERAL']"><a href="{{res.link()}}">{{res.title}}</a></li>
+        </ul>
+      </dd>
+    </div>
+    <div ng-repeat="con in activeContexts">
+      <dt>{{contextInfo(con).name}} <small><a ng-show="count(con) > resultsPerContext[con].length" ng-click="browse(con, context.url)" class="specify"><span class="icon-zoomin"></span></small></a></dt>
+      <dd>
+        <ul class="list-unstyled">
+          <li ng-repeat="res in resultsPerContext[con]"><a href="{{res.link()}}">{{res.title}}</a></li>
+        </ul>
+      </dd>
+    </div>
+  </dl>
+</div>
